@@ -47,8 +47,8 @@ public class StudentService {
     public Student create(Student students) {return studentRepository.save(students);}
 
     public Student create(StudentCreateRequest request) {
-        if (request.name() == null || request.name().trim().isEmpty()) {
-            throw new IllegalArgumentException("Student name cannot be null or empty");
+        if (studentRepository.existsByGender(request.gender())) {
+            return null;
         }
         Student student = mapToStudent(request);
         student.setCreateDate(LocalDateTime.now());
